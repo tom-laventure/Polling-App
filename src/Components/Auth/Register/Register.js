@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import FormPopUp from '../../PopUps/FormPopUp/FormPopUp'
 import Input from '../../UI/Input/Input'
 import Header from '../../UI/Header/Header'
@@ -71,6 +71,10 @@ const Register = (props) => {
             }
         }
     })
+
+    useEffect(()=> {
+
+    }, [userInfo])
 
     const change = (e, i) => {
         let temp = { ...userInfo }
@@ -152,7 +156,7 @@ const Register = (props) => {
                 {Inputs}
                 <div className={classes.buttonContainer}>
                     <Button type="submit" value="Register" />
-                    <Button type="button" value="Return to Login" onClick={() => props.switch()} />
+                    <Button type="button" value="Return to Login" onClick={(e) => props.switch("login", e)} />
                 </div>
             </form>
         </FormPopUp>

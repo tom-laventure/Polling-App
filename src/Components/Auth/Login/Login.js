@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Button from '../../UI/Button/Button'
 import Input from '../../UI/Input/Input'
 import classes from './Login.module.css'
@@ -38,6 +38,10 @@ const Login = (props) => {
         }
     })
 
+    useEffect(()=> {
+
+    }, [userInfo])
+
     const login = (e) => {
         e.preventDefault()
         fire.doSignInWithEmailAndPassword(userInfo.form.email.value, userInfo.form.password.value).then((data) => {
@@ -53,6 +57,7 @@ const Login = (props) => {
         temp.form[i].value = e.target.value
         setUserInfo(temp)
     }
+
 
     let formElementsArray = [];
     for (let element in userInfo.form) {
@@ -72,9 +77,10 @@ const Login = (props) => {
                         <Header headerType="h3" content="Login" />
                     </div>
                     {Inputs}
+                    <a href="" onClick={(e) => props.switch("reset", e)}>Forgot Password</a>
                     <div className={classes.buttonContainer}>
                         <Button value="Login" type="submit" />
-                        <Button onClick={props.switch} value="Register" type="button" />
+                        <Button onClick={(e) => props.switch("register", e)} value="Register" type="button" />
                     </div>
                 </form>
             </FormPopUp>

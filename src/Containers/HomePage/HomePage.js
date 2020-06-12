@@ -11,11 +11,12 @@ const Homepage = () => {
     let authView;
     useEffect(() => {
         console.log("state")
-    }, [auth])
+    }, [auth, state])
 
     fire.authStateChange((user) =>{
         if(!user){
             setAuth(true)
+            console.log(state)
             console.log(user, "logged out")
         }
         else{

@@ -14,10 +14,12 @@ const ErrorPopUp = (props) => {
 
     if (state.error) {
         hide = false
-        message = state.error.error.message
+        if (state.error.error) {
+            message = state.error.error.message
+        }
     }
 
-    console.log()
+
 
     return (
         <AuxDiv>

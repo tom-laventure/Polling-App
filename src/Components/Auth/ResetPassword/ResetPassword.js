@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from '../../UI/Button/Button'
 import Input from '../../UI/Input/Input'
-import classes from './Login.module.css'
+import classes from './ResetPassword.module.css'
 import PopUp from '../../PopUps/FormPopUp/FormPopUp'
 import Header from '../../UI/Header/Header'
+import { StoreContext } from '../../../Store/StoreContext'
 
-const Login = (props) => {
+const ResetPassword = (props) => {
+    const { state, dispatch, actions, fire } = useContext(StoreContext)
     const [userInfo, setUserInfo] = useState({
         form: {
             email: {
@@ -23,19 +25,24 @@ const Login = (props) => {
         }
     })
 
-    // const Login = () => {
-
-    // }
-
-    const change = (e) => {
+    const change = (e, i) => {
         let temp = { ...userInfo }
-        temp.email = e.target.value;
+        temp.form[i].value = e.target.value
         setUserInfo(temp)
     }
 
 
+    const ResetPassword = (e) => {
+        e.preventDefault();
+        fire.doPasswordReset(userInfo.form.email.value).then(data => {
+
+        }).catch(error => {
+            actions.setErrorState({error: error})
+        })
+    }
+
     let formElementsArray = [];
-    for(let element in userInfo.form){
+    for (let element in userInfo.form) {
         formElementsArray.push(element)
     }
     let Inputs = formElementsArray.map((i) => {
@@ -44,17 +51,19 @@ const Login = (props) => {
     })
 
     return (
-            <PopUp>
+        <PopUp>
+            <form onSubmit={(e) => ResetPassword(e)}>
                 <div className={classes.headerContainer}>
-                    <Header headerType="h3" content="Reset Password"/>
+                    <Header headerType="h3" content="Reset Password" />
                 </div>
                 {Inputs}
                 <div className={classes.buttonContainer}>
-                    <Button value="Rset Password" type="submit"/>
-                    <Button onClick={props.switch} value="Register" type="button" />
+                    <Button value="Reset Password" type="submit" />
+                    <Button onClick={(e) => props.switch("login", e)} value="Return to Login" type="button" />
                 </div>
-            </PopUp>
+            </form>
+        </PopUp>
     )
 }
 
-export default Login
+export default ResetPassword

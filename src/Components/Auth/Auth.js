@@ -5,6 +5,7 @@ import AuxBackground from '../../hoc/AuxBackground/AuxBackground'
 import Register from './Register/Register'
 import { StoreContext } from '../../Store/StoreContext'
 import ErrorPopUp from '../PopUps/ErrorPopUp/ErrorPopUp'
+import ResetPassword from './ResetPassword/ResetPassword'
 
 
 const Auth = (props) => {
@@ -29,20 +30,25 @@ const Auth = (props) => {
         }
     }, [req, res])
 
-    switch (view) {
-        case "login":
-            theView = <Login switch={() => switchAuthView("register")} />;
-            break;
-        case "register":
-            theView = <Register switch={() => switchAuthView("login")} />
-            break;
-    }
-
-
-    const switchAuthView = (type) => {
+    const switchAuthView = (type, e) => {
+        e.preventDefault()
         setView(type)
     }
 
+    switch (view) {
+        case "login":
+            theView = <Login switch={switchAuthView} />;
+            break;
+        case "register":
+            theView = <Register switch={switchAuthView} />
+            break;
+        case "reset":
+            theView = <ResetPassword switch={switchAuthView} />
+            break;
+        default:
+            theView = <Login switch={switchAuthView} />;
+            break;
+    }
 
     return (
         <AuxBackground zIndex="low">
