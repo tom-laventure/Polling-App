@@ -9,20 +9,20 @@ const Homepage = () => {
     const {state, dispatch, actions, fire} = useContext(StoreContext)
     const [auth, setAuth] = useState(true)
     let authView;
-    // useEffect(() => {
-    //     console.log("state")
-    // }, [auth])
+    useEffect(() => {
+        console.log("state")
+    }, [auth])
 
-    // fire.authStateChange((user) =>{
-    //     if(!user){
-    //         setAuth(true)
-    //         console.log(user, "logged out")
-    //     }
-    //     else{
-    //         setAuth(false)
-    //         console.log(user, "logged in")
-    //     }
-    // })
+    fire.authStateChange((user) =>{
+        if(!user){
+            setAuth(true)
+            console.log(user, "logged out")
+        }
+        else{
+            setAuth(false)
+            console.log(user, "logged in")
+        }
+    })
 
 
 
