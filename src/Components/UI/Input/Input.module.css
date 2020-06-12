@@ -1,0 +1,13 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.label{
+    font-weight: bold;
+}
+
+.input{
+    display: inline-block;
+}

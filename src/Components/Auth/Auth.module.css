@@ -1,0 +1,28 @@
+.loginContainer{
+    background: white;
+    width: 50%;
+    height: 400px;
+    margin: auto;
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    max-width: 300px;
+}
+
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    /* justify-content: center; */
+}
+
+.header{
+    font-weight: bold;
+    text-align: center;
+}
+
+.headerContainer{
+    width: 100%;
+
+}

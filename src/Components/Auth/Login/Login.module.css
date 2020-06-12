@@ -1,0 +1,15 @@
+.buttonContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 0;
+}
+
+.header{
+    font-weight: bold;
+    text-align: center;
+}
+
+.headerContainer{
+    width: 100%;
+}

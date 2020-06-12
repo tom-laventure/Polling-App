@@ -1,0 +1,28 @@
+.background{
+    min-width: 100%;
+    min-height:100%;
+    position: absolute;
+    background: rgba(183, 183, 183, 0.75);
+    display: inline-block;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    padding: 80px 0;
+}
+
+.zLow{
+    z-index: 1;
+}
+
+.zMedium{
+    z-index: 10;
+}
+
+.zHigh{
+    z-index: 100;
+}
+
+.hide{
+    display: none;
+}
