@@ -113,14 +113,18 @@ const Register = (props) => {
         return flag
     }
 
-    const registerNewUser = (id) => {
+    const registerNewUser = (user) => {
+        console.log(user, fire.getCurrentUser())
+        user.updateProfile({
+            displayName: userInfo.form.firstName.value + " " + userInfo.form.lastName.value,
+            email: userInfo.form.email.value
+        }).then(() => {
+            console.log("success")
+        }).catch((error) => {
+            actions.setErrorState({error: error})
+        })
         const newUser = {
-            id: id,
-            info: {
-                firstName: userInfo.form.firstName.value,
-                lastName: userInfo.form.lastName.value,
-                email: userInfo.form.email.value
-            }
+            id: user.uid,
         }
         axiosInstance.addNewUser(newUser)
     }
@@ -130,10 +134,8 @@ const Register = (props) => {
         let flag = checkValid();
         if (flag) {
             fire.doCreateUserWithEmailAndPassword(userInfo.form.email.value, userInfo.form.password.value).then((data) => {
-                console.log("success", data)
-                registerNewUser(data.user.uid)
+                registerNewUser(data.user)
             }).catch((error) => {
-                console.log("error")
                 actions.setErrorState({error: error})
             })
         }

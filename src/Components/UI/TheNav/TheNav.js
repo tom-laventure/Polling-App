@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
+
 import Button from 'react-bootstrap/Button'
-import { StoreContext } from '../../Store/StoreContext'
+import { StoreContext } from '../../../Store/StoreContext'
 
 const TheNav = () => {
     const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)

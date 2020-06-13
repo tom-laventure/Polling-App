@@ -28,7 +28,7 @@ class Firebase {
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
-  isUserSignedIn = () => this.auth.currentUser;
+  getCurrentUser = () => this.auth.currentUser;
 
   authStateChange = (fun) => this.auth.onAuthStateChanged(fun);
 

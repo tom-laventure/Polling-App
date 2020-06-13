@@ -1,25 +1,26 @@
 import React, { useContext, useState, useEffect } from 'react'
-import TheNav from '../../Components/TheNav/TheNav'
+import TheNav from '../../Components/UI/TheNav/TheNav'
 import Auth from '../../Components/Auth/Auth'
-import {StoreContext} from '../../Store/StoreContext'
+import { StoreContext } from '../../Store/StoreContext'
 import classes from './HomePage.module.css'
-import ErrorPopUp from '../../Components/PopUps/ErrorPopUp/ErrorPopUp'
+import Layout from '../../hoc/Layout/Layout'
 
 const Homepage = () => {
-    const {state, dispatch, actions, fire} = useContext(StoreContext)
+    const { state, dispatch, actions, fire } = useContext(StoreContext)
     const [auth, setAuth] = useState(true)
     let authView;
+
     useEffect(() => {
         console.log("state")
-    }, [auth, state])
+    }, [state])
 
-    fire.authStateChange((user) =>{
-        if(!user){
+    fire.authStateChange((user) => {
+        if (!user) {
             setAuth(true)
             console.log(state)
             console.log(user, "logged out")
         }
-        else{
+        else {
             setAuth(false)
             console.log(user, "logged in")
         }
@@ -27,16 +28,14 @@ const Homepage = () => {
 
 
 
-    if(auth){
-        authView = <Auth/>
+    if (auth) {
+        authView = <Auth />
     }
 
     return (
-        <div className={classes.container}>
-            <ErrorPopUp/>
+        <Layout>
             {authView}
-            <TheNav/>
-        </div>
+        </Layout>
     )
 }
 
