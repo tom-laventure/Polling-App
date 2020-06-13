@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import FormPopUp from '../../PopUps/FormPopUp/FormPopUp'
+import FormPopUp from '../../UI/PopUps/FormPopUp/FormPopUp'
 import Input from '../../UI/Input/Input'
 import Header from '../../UI/Header/Header'
 import Button from '../../UI/Button/Button'

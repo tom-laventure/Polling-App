@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import Button from '../../UI/Button/Button'
 import Input from '../../UI/Input/Input'
 import classes from './ResetPassword.module.css'
-import PopUp from '../../PopUps/FormPopUp/FormPopUp'
+import PopUp from '../../UI/PopUps/FormPopUp/FormPopUp'
 import Header from '../../UI/Header/Header'
 import { StoreContext } from '../../../Store/StoreContext'
 

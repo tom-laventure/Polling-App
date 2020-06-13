@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import classes from './ErrorPopUp.module.css'
-import AuxBackground from '../../../hoc/AuxBackground/AuxBackground'
-import { StoreContext } from '../../../Store/StoreContext'
-import AuxDiv from '../../../hoc/AuxDiv/AuxDiv'
-import Header from '../../UI/Header/Header'
+import AuxBackground from '../../../../hoc/AuxBackground/AuxBackground'
+import { StoreContext } from '../../../../Store/StoreContext'
+import AuxDiv from '../../../../hoc/AuxDiv/AuxDiv'
+import Header from '../../Header/Header'
 const ErrorPopUp = (props) => {
     const { state, dispatch, actions, fire } = useContext(StoreContext)
     let hide = true;

@@ -4,7 +4,7 @@ import Login from './Login/Login'
 import AuxBackground from '../../hoc/AuxBackground/AuxBackground'
 import Register from './Register/Register'
 import { StoreContext } from '../../Store/StoreContext'
-import ErrorPopUp from '../PopUps/ErrorPopUp/ErrorPopUp'
+import ErrorPopUp from '../UI/PopUps/ErrorPopUp/ErrorPopUp'
 import ResetPassword from './ResetPassword/ResetPassword'
 
 

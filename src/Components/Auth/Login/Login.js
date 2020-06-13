@@ -2,10 +2,10 @@ import React, { useState, useContext, useEffect } from 'react'
 import Button from '../../UI/Button/Button'
 import Input from '../../UI/Input/Input'
 import classes from './Login.module.css'
-import FormPopUp from '../../PopUps/FormPopUp/FormPopUp'
+import FormPopUp from '../../UI/PopUps/FormPopUp/FormPopUp'
 import Header from '../../UI/Header/Header'
 import { StoreContext } from '../../../Store/StoreContext'
-import ErrorPopUp from '../../PopUps/ErrorPopUp/ErrorPopUp'
+import ErrorPopUp from '../../UI/PopUps/ErrorPopUp/ErrorPopUp'
 import AuxDiv from '../../../hoc/AuxDiv/AuxDiv'
 
 const Login = (props) => {
