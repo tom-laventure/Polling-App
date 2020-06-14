@@ -12,7 +12,6 @@ const Auth = (props) => {
     const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
     const [view, setView] = useState("login")
     let theView;
-    let errorPopUp;
 
     const req = axiosInstance.setRequestInterceptor(req => {
         actions.setErrorState({error: null})
@@ -52,7 +51,6 @@ const Auth = (props) => {
 
     return (
         <AuxBackground zIndex="low">
-            {errorPopUp}
             {theView}
         </AuxBackground>
     )
