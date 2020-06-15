@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import TheNav from '../../Components/UI/TheNav/TheNav'
+import TheNav from '../../Components/UI/Navigation/TheNav/TheNav'
 import Auth from '../../Components/Auth/Auth'
 import { StoreContext } from '../../Store/StoreContext'
 import classes from './HomePage.module.css'
@@ -35,6 +35,7 @@ const Homepage = () => {
     return (
         <Layout>
             {authView}
+            
         </Layout>
     )
 }

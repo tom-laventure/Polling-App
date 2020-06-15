@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-
 import Button from 'react-bootstrap/Button'
-import { StoreContext } from '../../../Store/StoreContext'
+import { StoreContext } from '../../../../Store/StoreContext'
 
 const TheNav = () => {
     const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
@@ -21,7 +20,7 @@ const TheNav = () => {
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#features">Features</Nav.Link>
             </Nav>
-            <Button onClick={() => logOut()}>Logout</Button>
+            <Button variant="dark" onClick={() => logOut()}>Logout</Button>
         </Navbar>
     )
 }
