@@ -35,9 +35,8 @@ const ResetPassword = (props) => {
     const ResetPassword = (e) => {
         e.preventDefault();
         fire.doPasswordReset(userInfo.form.email.value).then(data => {
-
         }).catch(error => {
-            actions.setErrorState({error: error})
+            actions.setErrorState(error)
         })
     }
 

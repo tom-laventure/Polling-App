@@ -9,14 +9,12 @@ const ErrorPopUp = (props) => {
     let hide = true;
     let message;
     const errorAcknowledge = () => {
-        actions.setErrorState(false)
+        actions.setErrorState(null)
     }
 
     if (state.error) {
         hide = false
-        if (state.error.error) {
-            message = state.error.error.message
-        }
+        message = state.error.error.message
     }
 
 

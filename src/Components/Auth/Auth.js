@@ -13,21 +13,6 @@ const Auth = (props) => {
     const [view, setView] = useState("login")
     let theView;
 
-    const req = axiosInstance.setRequestInterceptor(req => {
-        actions.setErrorState({error: null})
-        return req;
-    })
-
-    const res = axiosInstance.setResponseInterceptor(error => {
-        actions.setErrorState({error: null})
-    })
-
-    useEffect(() => {
-        return () => {
-            axiosInstance.removeReqInterceptor(req);
-            axiosInstance.removeResInterceptor(res);
-        }
-    }, [req, res])
 
     const switchAuthView = (type, e) => {
         e.preventDefault()

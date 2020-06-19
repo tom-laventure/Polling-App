@@ -1,7 +1,7 @@
 import {types} from './Reducer'
 
 export const useActions = (dispatch) => {
-    const setLoginState = (item) => {
+    const setCurrentUser = (item) => {
         dispatch({type: types.SET_USER, payload: item})
     }
 
@@ -9,8 +9,18 @@ export const useActions = (dispatch) => {
         dispatch({type: types.SET_ERROR, payload: item})
     }
 
+    const joinCurrentPoll = (item) => {
+        dispatch({type: types.JOIN_CURRENT_POLL, payload: item})
+    }
+
+    const leaveCurrentPoll = (item) => {
+        dispatch({type: types.LEAVE_CURRENT_POLL, payload: item})
+    }
+
     return{
-        setLoginState,
-        setErrorState
+        setCurrentUser,
+        setErrorState,
+        joinCurrentPoll,
+        leaveCurrentPoll
     }
 }

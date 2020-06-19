@@ -8,8 +8,11 @@ const Input = (props) => {
         case "text":
             theInput = <input className={classes.input} {...props} onChange={props.onChange} />
             break;
+        case "int":
+            theInput = <input className={classes.input} {...props} onChange={props.onChange} />
+            break;
         default:
-            theInput = <input className={classes.input} {...props} />;
+            theInput = <input className={classes.input} {...props} onChange={props.onChange} />;
             break;
     }
     return (

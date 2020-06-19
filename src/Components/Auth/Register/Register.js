@@ -5,6 +5,7 @@ import Header from '../../UI/Header/Header'
 import Button from '../../UI/Button/Button'
 import classes from './Register.module.css'
 import { StoreContext } from '../../../Store/StoreContext'
+import { withRouter } from 'react-router-dom'
 
 const Register = (props) => {
     const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
@@ -114,19 +115,20 @@ const Register = (props) => {
     }
 
     const registerNewUser = (user) => {
-        console.log(user, fire.getCurrentUser())
+        const newUser = {
+            id: user.uid,
+        }
         user.updateProfile({
             displayName: userInfo.form.firstName.value + " " + userInfo.form.lastName.value,
             email: userInfo.form.email.value
         }).then(() => {
+            axiosInstance.addNewUser(newUser)
+            
             console.log("success")
         }).catch((error) => {
-            actions.setErrorState({error: error})
+            actions.setErrorState(error)
         })
-        const newUser = {
-            id: user.uid,
-        }
-        axiosInstance.addNewUser(newUser)
+
     }
 
     const register = (e) => {
@@ -136,7 +138,7 @@ const Register = (props) => {
             fire.doCreateUserWithEmailAndPassword(userInfo.form.email.value, userInfo.form.password.value).then((data) => {
                 registerNewUser(data.user)
             }).catch((error) => {
-                actions.setErrorState({error: error})
+                actions.setErrorState(error)
             })
         }
 
@@ -165,4 +167,4 @@ const Register = (props) => {
     )
 }
 
-export default Register
+export default withRouter(Register)

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 class axiosInstance {
-    constructor(){
+    constructor() {
         this.axios = axios.create({
             baseURL: "https://general-auth-4ef43.firebaseio.com/"
         })
@@ -11,6 +11,12 @@ class axiosInstance {
         this.axios.post('/users.json', user).then((response) => {
             console.log(response)
         }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    createNewPoll = (poll, res) => {
+        this.axios.post('/polls.json', poll).then(res).catch(error => {
             console.log(error)
         })
     }

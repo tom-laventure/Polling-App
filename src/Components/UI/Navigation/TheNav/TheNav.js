@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 import { StoreContext } from '../../../../Store/StoreContext'
+import firebase from 'firebase'
 
 const TheNav = () => {
     const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)

@@ -1,21 +1,26 @@
 import React, { useState, useContext, useEffect } from 'react'
+import classes from './CreatePoll.module.css'
 import Button from '../../UI/Button/Button'
 import Input from '../../UI/Input/Input'
-import classes from './Login.module.css'
 import FormPopUp from '../../UI/PopUps/FormPopUp/FormPopUp'
 import Header from '../../UI/Header/Header'
 import { StoreContext } from '../../../Store/StoreContext'
 import AuxDiv from '../../../hoc/AuxDiv/AuxDiv'
+import { withRouter } from 'react-router-dom'
 
-const Login = (props) => {
-    const { state, dispatch, actions, fire } = useContext(StoreContext)
+
+const CreatePoll = (props) => {
+    const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
     const [userInfo, setUserInfo] = useState({
+        formInfo: {
+            title: "Create Poll"
+        },
         form: {
-            email: {
+            name: {
                 elementConfig: {
-                    type: 'email',
+                    type: 'text',
                     inputType: 'text',
-                    label: 'Email'
+                    label: 'Name'
                 },
                 validation: {
                 },
@@ -23,11 +28,11 @@ const Login = (props) => {
                 value: '',
 
             },
-            password: {
+            limit: {
                 elementConfig: {
-                    type: 'password',
+                    type: 'number',
                     inputType: 'text',
-                    label: 'Password'
+                    label: 'Limit'
                 },
                 validation: {
                 },
@@ -41,14 +46,21 @@ const Login = (props) => {
 
     }, [userInfo])
 
-    const login = (e) => {
+    const submit = (e) => {
         e.preventDefault()
-        fire.doSignInWithEmailAndPassword(userInfo.form.email.value, userInfo.form.password.value).then((data) => {
-            actions.setCurrentUser(data.user)
+        let temp = {...userInfo}
+        const poll = {
+            name: temp.form.name.value,
+            limit: temp.form.limit.value
         }
-        ).catch((error) => {
-            actions.setErrorState(error)
-        });
+        axiosInstance.createNewPoll(poll, (res) => {
+            console.log(res);
+            let pollId = encodeURIComponent(res.data.name);
+            props.history.push({
+                pathname: '/Poll',
+                search: '?' + pollId
+            })
+        })
     }
 
     const change = (e, i) => {
@@ -71,15 +83,13 @@ const Login = (props) => {
     return (
         <AuxDiv>
             <FormPopUp>
-                <form onSubmit={(e) => login(e)}>
+                <form onSubmit={(e) => submit(e)}>
                     <div className={classes.headerContainer}>
-                        <Header headerType="h3" content="Login" />
+                        <Header headerType="h3" content={userInfo.formInfo.title} />
                     </div>
                     {Inputs}
-                    <a href="" onClick={(e) => props.switch("reset", e)}>Forgot Password</a>
                     <div className={classes.buttonContainer}>
-                        <Button value="Login" type="submit" />
-                        <Button onClick={(e) => props.switch("register", e)} value="Register" type="button" />
+                        <Button value="Create Poll" type="submit" />
                     </div>
                 </form>
             </FormPopUp>
@@ -87,4 +97,4 @@ const Login = (props) => {
     )
 }
 
-export default Login
+export default withRouter(CreatePoll)

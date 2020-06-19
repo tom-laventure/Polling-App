@@ -16,6 +16,7 @@ const StoreProvider = ({ children }) => {
     useEffect(() => {
         console.log(state)
     }, [state])
+    
 
 
     return (
