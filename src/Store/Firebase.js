@@ -10,13 +10,62 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
+
 class Firebase {
   constructor() {
-    if(!app.apps.length){
+    if (!app.apps.length) {
       app.initializeApp(config);
     }
     this.auth = app.auth();
+    this.database = app.database()
   }
+  
+  createNewUser = (data, id) => {
+    this.database.ref('users/' + id).set(data)
+  }
+
+  createPoll = (data, res) => {
+    this.database.ref('polls').push(data).then((i) => {
+      this.database.ref('users/' + data.members[0].id).transaction(r => {
+        if(r){
+          if(!r.groups){
+            r.groups = [{id: i.key, name: data.name}]
+          }
+          else{
+            r.groups.push({id: i.key, name: data.name})
+          }
+        }
+        return r
+      })
+      res(i)
+    })
+  }
+
+  joinPoll = (data, id) => {
+    this.database.ref('polls/' + id).transaction((poll) => {
+      if (poll) {
+        poll.members.push(data)
+      }
+      return poll
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  leavePoll = (data, id) => {
+    this.database.ref('polls/' + id).transaction((poll) => {
+      if (poll) {
+        poll.members = poll.members.filter((i) => i.id !== data.id)
+      }
+      return poll
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+
+
+
 
   doCreateUserWithEmailAndPassword = (email, password) => this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -28,7 +77,7 @@ class Firebase {
 
   doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
-  authStateChange = (fun) => this.auth.onAuthStateChanged(fun);  
+  authStateChange = (fun) => this.auth.onAuthStateChanged(fun);
 }
 
 export default Firebase;

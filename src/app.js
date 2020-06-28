@@ -8,7 +8,7 @@ import Auth from './Components/Auth/Auth';
 
 
 const App = () => {
-    const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
+    const { state, actions, fire, axiosInstance } = useContext(StoreContext)
     const [auth, setAuth] = useState(false)
     const req = axiosInstance.setRequestInterceptor(req => {
         actions.setErrorState(null)

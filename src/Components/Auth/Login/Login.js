@@ -8,7 +8,7 @@ import { StoreContext } from '../../../Store/StoreContext'
 import AuxDiv from '../../../hoc/AuxDiv/AuxDiv'
 
 const Login = (props) => {
-    const { state, dispatch, actions, fire } = useContext(StoreContext)
+    const { actions, fire } = useContext(StoreContext)
     const [userInfo, setUserInfo] = useState({
         form: {
             email: {
@@ -43,6 +43,7 @@ const Login = (props) => {
 
     const login = (e) => {
         e.preventDefault()
+        // fire.addToPoll("-MA---VvMNIpYMCJIzY9")
         fire.doSignInWithEmailAndPassword(userInfo.form.email.value, userInfo.form.password.value).then((data) => {
             actions.setCurrentUser(data.user)
         }

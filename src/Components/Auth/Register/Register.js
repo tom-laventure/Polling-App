@@ -8,7 +8,7 @@ import { StoreContext } from '../../../Store/StoreContext'
 import { withRouter } from 'react-router-dom'
 
 const Register = (props) => {
-    const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
+    const { actions, fire } = useContext(StoreContext)
     const [userInfo, setUserInfo] = useState({
         form: {
             firstName: {
@@ -73,7 +73,7 @@ const Register = (props) => {
         }
     })
 
-    useEffect(()=> {
+    useEffect(() => {
 
     }, [userInfo])
 
@@ -115,15 +115,15 @@ const Register = (props) => {
     }
 
     const registerNewUser = (user) => {
+        console.log(user)
         const newUser = {
-            id: user.uid,
+            displayName: userInfo.form.firstName.value + " " + userInfo.form.lastName.value,
+            email: user.email
         }
         user.updateProfile({
             displayName: userInfo.form.firstName.value + " " + userInfo.form.lastName.value,
-            email: userInfo.form.email.value
         }).then(() => {
-            axiosInstance.addNewUser(newUser)
-            
+            fire.createNewUser(newUser, user.uid)
             console.log("success")
         }).catch((error) => {
             actions.setErrorState(error)

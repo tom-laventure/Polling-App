@@ -5,12 +5,14 @@ import classes from './HomePage.module.css'
 import Layout from '../../hoc/Layout/Layout'
 import CreatePoll from '../../Components/Poll/CreatePoll/CreatePoll'
 import MainContainer from '../../hoc/MainContainer/MainContainer'
+import GroupList from '../../Components/Poll/Groups/GroupList/GroupList'
 
 const Homepage = () => {
     const { state, dispatch, actions, fire } = useContext(StoreContext)
 
     return (
         <MainContainer>
+            <GroupList />
             <CreatePoll />
         </MainContainer>
     )

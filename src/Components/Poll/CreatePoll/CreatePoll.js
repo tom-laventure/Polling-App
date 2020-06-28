@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom'
 
 
 const CreatePoll = (props) => {
-    const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
+    const { state,  fire } = useContext(StoreContext)
     const [userInfo, setUserInfo] = useState({
         formInfo: {
             title: "Create Poll"
@@ -42,23 +42,24 @@ const CreatePoll = (props) => {
         }
     })
 
-    useEffect(()=> {
+    useEffect(() => {
 
     }, [userInfo])
 
     const submit = (e) => {
         e.preventDefault()
-        let temp = {...userInfo}
+        let temp = { ...userInfo }
         const poll = {
             name: temp.form.name.value,
-            limit: temp.form.limit.value
+            limit: temp.form.limit.value,
+            members: [{name: state.user.displayName, id: state.user.uid}]
         }
-        axiosInstance.createNewPoll(poll, (res) => {
-            console.log(res);
-            let pollId = encodeURIComponent(res.data.name);
+
+        fire.createPoll(poll, (res) => {
+            let pollId = encodeURIComponent(res.key);
             props.history.push({
                 pathname: '/Poll',
-                search: '?' + pollId
+                search: pollId
             })
         })
     }

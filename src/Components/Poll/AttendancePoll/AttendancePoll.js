@@ -4,32 +4,47 @@ import MainContainer from '../../../hoc/MainContainer/MainContainer'
 import { StoreContext } from '../../../Store/StoreContext'
 import classes from './AttendancePoll.module.css'
 import Button from 'react-bootstrap/Button'
-import firebase from 'firebase'
+import { withRouter } from 'react-router-dom'
+import ListContainer from '../../Section/ListContainer/ListContainer'
 
-
-const AttendancePoll = () => {
-    const { state, dispatch, actions, fire, axiosInstance } = useContext(StoreContext)
-    const [flag, setFlag] = useState(true)
+const AttendancePoll = (props) => {
+    const { state, actions, fire, database } = useContext(StoreContext)
+    const [flag, setFlag] = useState(false)
+    const [pollItems, setPollItems] = useState()
+    const [pollID, setPollID] = useState()
+    const [pollData, setPollData] = useState()
     let options;
 
+
     useEffect(() => {
-        if (state.user != null) {
-            if (state.polls.currentPoll.find((element) => element.id == state.user.uid) == null) {
-                setFlag(true)
-            }
-            else{
-                setFlag(false)
-            }
+        if (pollData != null) {
+            setPoll(pollData)
         }
-    }, [ state.polls, state.user])
+    }, [pollData])
+
+    useEffect(() => {
+        const query = new URLSearchParams(props.location.search);
+        let temp;
+        for (let param of query.entries()) {
+            temp = param[0]
+            setPollID(temp)
+            console.log(temp)
+        }
+
+        database.ref('polls/' + temp).on('value', (snap) => {
+            let data = snap.val()
+            setPollData(data)
+        })
+    }, [])
 
 
-
-    let pollItems = state.polls.currentPoll.map((item, i) => {
-        return <PollItem name={item.name} key={i} />
-    })
-
-
+    const setPoll = (data) => {
+        console.log(data)
+        let temp = data.members.map((item, i) => {
+            return <PollItem name={item.name} key={i} />
+        })
+        setPollItems(temp)
+    }
 
     const joinPoll = () => {
         let temp = {
@@ -37,9 +52,7 @@ const AttendancePoll = () => {
             id: state.user.uid
         }
 
-        if (state.polls.currentPoll.find((element) => element.id == temp.id) == null) {
-            actions.joinCurrentPoll(temp)
-        }
+        fire.joinPoll(temp, pollID)
     }
 
     const leavePoll = () => {
@@ -48,21 +61,24 @@ const AttendancePoll = () => {
             id: state.user.uid
         }
 
-        if (state.polls.currentPoll.find((element) => element.id == temp.id) != null) {
-            actions.leaveCurrentPoll(temp)
-        }
+        fire.leavePoll(temp, pollID)
     }
 
-    if(flag){
-        options = <Button variant="outline-primary" onClick={() => joinPoll()}>Join</Button>
-    }
-    else{
-        options = <Button variant="outline-primary" onClick={() => leavePoll()}>Leave</Button>
+    if (state.user && pollData) {
+        let temp = pollData.members.filter(i => i.id === state.user.uid)
+        if (temp.length === 0) {
+            options = <Button variant="outline-primary" onClick={() => joinPoll()}>Join</Button>
+        }
+        else {
+            options = <Button variant="outline-primary" onClick={() => leavePoll()}>Leave</Button>
+        }
     }
     return (
         <MainContainer>
             <div className={classes.poll}>
-                {pollItems}
+                <ListContainer>
+                    {pollItems}
+                </ListContainer>
                 <div>
                     {options}
                 </div>
@@ -71,4 +87,4 @@ const AttendancePoll = () => {
     );
 }
 
-export default AttendancePoll
+export default withRouter(AttendancePoll)
