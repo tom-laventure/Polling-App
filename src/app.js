@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Homepage from './Containers/HomePage/HomePage';
 import { Switch, Route } from 'react-router-dom';
 import { StoreContext } from './Store/StoreContext'
-import AttendancePoll from './Components/Poll/AttendancePoll/AttendancePoll';
+import AttendancePoll from './Containers/AttendancePoll/AttendancePoll';
 import Layout from './hoc/Layout/Layout';
 import Auth from './Components/Auth/Auth';
 

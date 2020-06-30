@@ -44,6 +44,9 @@ class Firebase {
   joinPoll = (data, id) => {
     this.database.ref('polls/' + id).transaction((poll) => {
       if (poll) {
+        if(!poll.hasOwnProperty("members")){
+          poll.members = []
+        }
         poll.members.push(data)
       }
       return poll

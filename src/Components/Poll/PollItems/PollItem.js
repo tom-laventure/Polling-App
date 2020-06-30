@@ -3,9 +3,9 @@ import classes from './PollItem.module.css'
 
 const PollItem = (props) => {
     return (
-        <div className={classes.item}>
-            {props.name}
-        </div>
+        <tr className={classes.item}>
+            <td>{props.name}</td>
+        </tr>
     )
 }
 

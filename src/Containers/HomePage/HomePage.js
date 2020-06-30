@@ -12,8 +12,8 @@ const Homepage = () => {
 
     return (
         <MainContainer>
-            <GroupList />
             <CreatePoll />
+            <GroupList />
         </MainContainer>
     )
 }

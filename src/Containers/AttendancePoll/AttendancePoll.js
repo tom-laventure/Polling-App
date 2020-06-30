@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import PollItem from '../PollItems/PollItem'
-import MainContainer from '../../../hoc/MainContainer/MainContainer'
-import { StoreContext } from '../../../Store/StoreContext'
+import PollItem from '../../Components/Poll/PollItems/PollItem'
+import MainContainer from '../../hoc/MainContainer/MainContainer'
+import { StoreContext } from '../../Store/StoreContext'
 import classes from './AttendancePoll.module.css'
 import Button from 'react-bootstrap/Button'
 import { withRouter } from 'react-router-dom'
-import ListContainer from '../../Section/ListContainer/ListContainer'
+import SubContainer from '../../Components/Section/SubContainer/SubContainer'
+import TableHead from '../../Components/UI/Table/TableHead'
+import Table from 'react-bootstrap/Table'
+import GroupList from '../../Components/Poll/Groups/GroupList/GroupList'
 
 const AttendancePoll = (props) => {
     const { state, actions, fire, database } = useContext(StoreContext)
@@ -13,8 +16,8 @@ const AttendancePoll = (props) => {
     const [pollItems, setPollItems] = useState()
     const [pollID, setPollID] = useState()
     const [pollData, setPollData] = useState()
+    const tableHeaders = ["Name"]
     let options;
-
 
     useEffect(() => {
         if (pollData != null) {
@@ -35,14 +38,23 @@ const AttendancePoll = (props) => {
             let data = snap.val()
             setPollData(data)
         })
-    }, [])
+        return () => {
+            database.ref('polls/' + temp).off('value')
+        }
+    }, [props.location.search])
 
 
     const setPoll = (data) => {
+        let temp;
         console.log(data)
-        let temp = data.members.map((item, i) => {
-            return <PollItem name={item.name} key={i} />
-        })
+        if (data.hasOwnProperty("members")) {
+            temp = data.members.map((item, i) => {
+                return <PollItem name={item.name} key={i} />
+            })
+        }
+        else {
+            temp = <PollItem name="No one has voted yet" />
+        }
         setPollItems(temp)
     }
 
@@ -65,24 +77,33 @@ const AttendancePoll = (props) => {
     }
 
     if (state.user && pollData) {
-        let temp = pollData.members.filter(i => i.id === state.user.uid)
-        if (temp.length === 0) {
-            options = <Button variant="outline-primary" onClick={() => joinPoll()}>Join</Button>
+        if (pollData.hasOwnProperty("members")) {
+            let temp = pollData.members.filter(i => i.id === state.user.uid)
+            if (temp.length === 0) {
+                options = <Button variant="outline-primary" onClick={() => joinPoll()}>Join</Button>
+            }
+            else {
+                options = <Button variant="outline-primary" onClick={() => leavePoll()}>Leave</Button>
+            }
         }
         else {
-            options = <Button variant="outline-primary" onClick={() => leavePoll()}>Leave</Button>
+            options = <Button variant="outline-primary" onClick={() => joinPoll()}>Join</Button>
         }
     }
     return (
         <MainContainer>
-            <div className={classes.poll}>
-                <ListContainer>
-                    {pollItems}
-                </ListContainer>
+            <SubContainer>
+                <Table>
+                    <TableHead headers={tableHeaders} size="sm" striped bordered />
+                    <tbody>
+                        {pollItems}
+                    </tbody>
+                </Table>
                 <div>
                     {options}
                 </div>
-            </div>
+            </SubContainer>
+            <GroupList />
         </MainContainer>
     );
 }

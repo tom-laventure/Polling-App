@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import classes from './CreatePoll.module.css'
 import Button from '../../UI/Button/Button'
 import Input from '../../UI/Input/Input'
-import FormPopUp from '../../UI/PopUps/FormPopUp/FormPopUp'
+import SubContainer from '../../Section/SubContainer/SubContainer'
 import Header from '../../UI/Header/Header'
 import { StoreContext } from '../../../Store/StoreContext'
 import AuxDiv from '../../../hoc/AuxDiv/AuxDiv'
@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom'
 
 
 const CreatePoll = (props) => {
-    const { state,  fire } = useContext(StoreContext)
+    const { state, fire } = useContext(StoreContext)
     const [userInfo, setUserInfo] = useState({
         formInfo: {
             title: "Create Poll"
@@ -52,7 +52,7 @@ const CreatePoll = (props) => {
         const poll = {
             name: temp.form.name.value,
             limit: temp.form.limit.value,
-            members: [{name: state.user.displayName, id: state.user.uid}]
+            members: [{ name: state.user.displayName, id: state.user.uid }]
         }
 
         fire.createPoll(poll, (res) => {
@@ -83,7 +83,7 @@ const CreatePoll = (props) => {
 
     return (
         <AuxDiv>
-            <FormPopUp>
+            <SubContainer>
                 <form onSubmit={(e) => submit(e)}>
                     <div className={classes.headerContainer}>
                         <Header headerType="h3" content={userInfo.formInfo.title} />
@@ -93,7 +93,7 @@ const CreatePoll = (props) => {
                         <Button value="Create Poll" type="submit" />
                     </div>
                 </form>
-            </FormPopUp>
+            </SubContainer>
         </AuxDiv>
     )
 }

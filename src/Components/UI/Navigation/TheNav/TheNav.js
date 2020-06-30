@@ -18,10 +18,7 @@ const TheNav = () => {
     return (
         <Navbar bg="dark" variant="dark">
             <Navbar.Brand><Link to="/">Poll</Link></Navbar.Brand>
-            <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#features">Features</Nav.Link>
-            </Nav>
+            <Nav className="mr-auto"></Nav>
             <Button variant="dark" onClick={() => logOut()}>Logout</Button>
         </Navbar>
     )
