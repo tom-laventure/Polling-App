@@ -9,6 +9,7 @@ import SubContainer from '../../Components/Section/SubContainer/SubContainer'
 import TableHead from '../../Components/UI/Table/TableHead'
 import Table from 'react-bootstrap/Table'
 import GroupList from '../../Components/Poll/Groups/GroupList/GroupList'
+import Header from '../../Components/UI/Header/Header'
 
 const AttendancePoll = (props) => {
     const { state, actions, fire, database } = useContext(StoreContext)
@@ -16,7 +17,8 @@ const AttendancePoll = (props) => {
     const [pollItems, setPollItems] = useState()
     const [pollID, setPollID] = useState()
     const [pollData, setPollData] = useState()
-    const tableHeaders = ["Name"]
+    const tableHeaders = ["Attending"]
+    let header;
     let options;
 
     useEffect(() => {
@@ -77,6 +79,7 @@ const AttendancePoll = (props) => {
     }
 
     if (state.user && pollData) {
+        header = pollData.name
         if (pollData.hasOwnProperty("members")) {
             let temp = pollData.members.filter(i => i.id === state.user.uid)
             if (temp.length === 0) {
@@ -90,9 +93,11 @@ const AttendancePoll = (props) => {
             options = <Button variant="outline-primary" onClick={() => joinPoll()}>Join</Button>
         }
     }
+
     return (
         <MainContainer>
             <SubContainer>
+                <Header content={header} headerType="h3"/>
                 <Table>
                     <TableHead headers={tableHeaders} size="sm" striped bordered />
                     <tbody>
