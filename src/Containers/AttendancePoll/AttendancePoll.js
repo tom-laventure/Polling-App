@@ -10,6 +10,10 @@ import TableHead from '../../Components/UI/Table/TableHead'
 import Table from 'react-bootstrap/Table'
 import GroupList from '../../Components/Poll/Groups/GroupList/GroupList'
 import Header from '../../Components/UI/Header/Header'
+import LeftDiv from '../../Components/Section/LeftDiv/LeftDiv'
+import CenterDiv from '../../Components/Section/CenterDiv/CenterDiv'
+import RightDiv from '../../Components/Section/RightDiv/RightDiv'
+import CreatePoll from '../../Components/Poll/CreatePoll/CreatePoll'
 
 const AttendancePoll = (props) => {
     const { state, actions, fire, database } = useContext(StoreContext)
@@ -25,6 +29,7 @@ const AttendancePoll = (props) => {
         if (pollData != null) {
             setPoll(pollData)
         }
+        console.log(pollData)
     }, [pollData])
 
     useEffect(() => {
@@ -96,19 +101,26 @@ const AttendancePoll = (props) => {
 
     return (
         <MainContainer>
-            <SubContainer>
-                <Header content={header} headerType="h3"/>
-                <Table>
-                    <TableHead headers={tableHeaders} size="sm" striped bordered />
-                    <tbody>
-                        {pollItems}
-                    </tbody>
-                </Table>
-                <div>
-                    {options}
-                </div>
-            </SubContainer>
-            <GroupList />
+            <LeftDiv>
+                <GroupList />
+            </LeftDiv>
+            <CenterDiv>
+                <SubContainer>
+                    <Header content={header} headerType="h3" />
+                    <Table>
+                        <TableHead headers={tableHeaders} size="sm" striped bordered />
+                        <tbody>
+                            {pollItems}
+                        </tbody>
+                    </Table>
+                    <div>
+                        {options}
+                    </div>
+                </SubContainer>
+            </CenterDiv>
+            <RightDiv>
+                <CreatePoll />
+            </RightDiv>
         </MainContainer>
     );
 }

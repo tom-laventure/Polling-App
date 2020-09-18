@@ -86,7 +86,7 @@ const CreatePoll = (props) => {
             <SubContainer>
                 <form onSubmit={(e) => submit(e)}>
                     <div className={classes.headerContainer}>
-                        <Header headerType="h3" content={userInfo.formInfo.title} />
+                        <Header headerType="h4" content={userInfo.formInfo.title} />
                     </div>
                     {Inputs}
                     <div className={classes.buttonContainer}>
