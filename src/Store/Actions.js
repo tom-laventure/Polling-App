@@ -17,10 +17,15 @@ export const useActions = (dispatch) => {
         dispatch({type: types.LEAVE_CURRENT_POLL, payload: item})
     }
 
+    const createGroup = (item) => {
+        dispatch({type: types.CREATE_GROUP, payload: item})
+    }
+
     return{
         setCurrentUser,
         setErrorState,
         joinCurrentPoll,
-        leaveCurrentPoll
+        leaveCurrentPoll,
+        createGroup
     }
 }

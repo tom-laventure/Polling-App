@@ -1,7 +1,7 @@
 .background{
     min-width: 100%;
     min-height:100%;
-    position: absolute;
+    position: fixed;
     background: rgba(183, 183, 183, 0.75);
     display: inline-block;
     top: 0;

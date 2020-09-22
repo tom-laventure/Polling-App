@@ -6,9 +6,10 @@ import ListContainer from '../../../Section/SubContainer/SubContainer'
 import Table from 'react-bootstrap/Table'
 import TableHead from '../../../UI/Table/TableHead'
 import { withRouter } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 const GroupList = (props) => {
-    const { state, database } = useContext(StoreContext)
+    const { state, actions, database } = useContext(StoreContext)
     const [groupsItems, setGroupsItems] = useState()
     const tableHeaders = ["Your Groups"]
     useEffect(() => {
@@ -39,10 +40,18 @@ const GroupList = (props) => {
         })
     }
 
+    const addGroup = () => {
+        actions.createGroup(true)
+    }
     return (
         <ListContainer>
             <Table size="sm" striped bordered>
-                <TableHead headers={tableHeaders} />
+                <thead>
+                    <tr className="d-flex justify-content-between">
+                        {tableHeaders}
+                        <Button variant="secondary" onClick={() => addGroup()} className="p-0 mr-1">+</Button>
+                    </tr>
+                </thead>
                 <tbody>
                     {groupsItems}
                 </tbody>

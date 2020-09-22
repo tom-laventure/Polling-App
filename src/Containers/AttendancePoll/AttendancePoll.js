@@ -119,7 +119,6 @@ const AttendancePoll = (props) => {
                 </SubContainer>
             </CenterDiv>
             <RightDiv>
-                <CreatePoll />
             </RightDiv>
         </MainContainer>
     );

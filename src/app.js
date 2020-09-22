@@ -5,6 +5,7 @@ import { StoreContext } from './Store/StoreContext'
 import AttendancePoll from './Containers/AttendancePoll/AttendancePoll';
 import Layout from './hoc/Layout/Layout';
 import Auth from './Components/Auth/Auth';
+import CreateGroupPopUp from './Components/Poll/Groups/CreateGroupPopUp/CreateGroupPopUp';
 
 
 const App = () => {
@@ -18,7 +19,7 @@ const App = () => {
         actions.setErrorState(null)
     })
     let authView;
-
+    let createGroup;
     useEffect(() => {
         return () => {
             axiosInstance.removeReqInterceptor(req);
@@ -47,9 +48,13 @@ const App = () => {
     if (auth) {
         authView = <Auth />
     }
+    else if (state.createGroup) {
+        createGroup = <CreateGroupPopUp />
+    }
     return (
         <Layout>
             {authView}
+            {createGroup}
             <Switch>
                 <Route path="/poll" component={AttendancePoll} />
                 <Route path="/" component={Homepage} />
